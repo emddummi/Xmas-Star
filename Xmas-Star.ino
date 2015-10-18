@@ -1,12 +1,12 @@
 #include "LPD8806.h"
 #include <SPI.h>
 
-const int dataPin = 2;   
-const int clockPin = 3; 
+const int dataPin = 11;   
+const int clockPin = 13; 
 const int ledPin =  13;      // the number of the LED pin
 int ledState = LOW;             // ledState used to set the LED
 //const int numLEDs = 160;
-const int numLEDs = 96;
+const int numLEDs = 80;
 
 // Set the first variable to the NUMBER of pixels. 32 = 32 pixels in a row
 // The LED strips are 32 LEDs per meter but you can extend/cut the strip
@@ -30,31 +30,31 @@ uint32_t Red, Green, Blue, Cyan, Yellow, Magenta, White, Black;
 //       103-109, 110-115, 116-121, 122-127, 128-134, 135-140, 141-146, 147-152
 
 // for 3 meter strip - 96 LEDs
-// large star:  4, 5, 8, 7, 5, 5, 11, 12  
-//            0-3, 4-8, 9-16, 17-23, 24-28, 29-33, 34-44, 45-56
+// large star:  6, 6, 14, 14, 6, 6, 14, 14  
+//            0-5, 6-11, 12-25, 26-39, 40-45, 46-51, 52-65, 66-80
 // small star:  4, 5, 5, 4,  5, 4, 5, 5
 //       59-62, 63-67, 68-72, 73-76,  77-81, 82-85, 86-90, 91-95
 
 // large star - address of each segment, clockwise around the star
 const int ls_1 = 0;
-const int ls_2 = 4; 
-const int ls_3 = 9; 
-const int ls_4 = 17; 
-const int ls_5 = 24; 
-const int ls_6 = 29; 
-const int ls_7 = 34; 
-const int ls_8 = 45; 
-const int ls_end = 56;  // last pixel in large star
+const int ls_2 = 6; 
+const int ls_3 = 12; 
+const int ls_4 = 26; 
+const int ls_5 = 40; 
+const int ls_6 = 46; 
+const int ls_7 = 52; 
+const int ls_8 = 66; 
+const int ls_end = 80;  // last pixel in large star
 // small star - clockwise
-const int ss_1 = 59; 
-const int ss_2 = 63; 
-const int ss_3 = 68; 
-const int ss_4 = 73; 
-const int ss_5 = 77; 
-const int ss_6 = 82; 
-const int ss_7 = 86;
-const int ss_8 = 91; 
-const int ss_end = 95;
+// const int ss_1 = 59; 
+// const int ss_2 = 63; 
+// const int ss_3 = 68; 
+// const int ss_4 = 73; 
+// const int ss_5 = 77; 
+// const int ss_6 = 82; 
+// const int ss_7 = 86;
+// const int ss_8 = 91; 
+// const int ss_end = 95;
 
 void blink() {
 // if the LED is off turn it on and vice-versa:
@@ -86,8 +86,8 @@ void loop() {
 
   blink();
 // *****  RANDOM RED INNER, THEN TURN ON SLOWLY
-  randomSparkleUpSegment(Red,15,20,ss_1,ss_end); //color, density, delay, low point, high point
-  turnSegOn(Red,1000,ss_1,ss_end-ss_1); //color, delay, start, length
+//   randomSparkleUpSegment(Red,15,20,ss_1,ss_end); //color, density, delay, low point, high point
+//   turnSegOn(Red,1000,ss_1,ss_end-ss_1); //color, delay, start, length
 // *****  RANDOM GREEN OUTER, THEN TURN ON SLOWLY
   randomSparkleUpSegment(Green,15,20,ls_1,ls_end); //color, density, delay, low point, high point
   turnSegOn(Green,500,ls_1,ls_end-ls_1); //color, delay, start of segment, end of segment
@@ -97,25 +97,25 @@ void loop() {
   
 // **** FILL UP RED  
   fillUpTheStar(Red,30); //color, delay
-  fillUpCenterStar(Red,30); //color, delay
+//   fillUpCenterStar(Red,30); //color, delay
 // ***** FILL UP YELLOW
   fillUpTheStar(Yellow,30); //color, delay
-  fillUpCenterStar(Yellow,30); //color, delay
+//   fillUpCenterStar(Yellow,30); //color, delay
 // *** FILL UP GREEN
   fillUpTheStar(Green,30); //color, delay
-  fillUpCenterStar(Green,30); //color, delay
+//   fillUpCenterStar(Green,30); //color, delay
 // ***** FILL UP CYAN
   fillUpTheStar(Cyan,30); //color, delay
-  fillUpCenterStar(Cyan,30); //color, delay
+//   fillUpCenterStar(Cyan,30); //color, delay
 // ***** FILL UP BLUE
   fillUpTheStar(Blue,30); //color, delay
-  fillUpCenterStar(Blue,30); //color, delay
+//   fillUpCenterStar(Blue,30); //color, delay
 // ***** FILL UP MAGENTA
   fillUpTheStar(Magenta,30); //color, delay
-  fillUpCenterStar(Magenta,30); //color, delay
+//   fillUpCenterStar(Magenta,30); //color, delay
 // *** FILL UP WHITE
   fillUpTheStar(White,30); //color, delay
-  fillUpCenterStar(White,30); //color, delay 
+//   fillUpCenterStar(White,30); //color, delay 
   
 // *** ALL RED, GREEN DITHER, FADE DOWN
   turnOnAll(Red,200); //color, delay - turn all pixels one color, slowly
@@ -127,26 +127,26 @@ void loop() {
   dither(White, 20);  // DITHER TO WHITE
 
 // *** RED DITHER, FADE DOWN
-//  dither(Red, 20); //color, delay - random fills up the strip
-//  fadeDown(127,0,0,30); //red, green, blue, delay - fade down all pixels one color
+  dither(Red, 20); //color, delay - random fills up the strip
+  fadeDown(127,0,0,30); //red, green, blue, delay - fade down all pixels one color
 
 // *** FLASH RED, GREEN, RED, GREEN, etc,,,   
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Red,400); //color, delay - turn all pixels one color 
-//  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
+  turnOnAll(Red,400); //color, delay - turn all pixels one color 
+  turnOnAll(Green,400); //color, delay - turn all pixels one color 
 
 // *** CHASE TO BLACK (CODE SAYS WHITE??? )
   chaseBetweenUp(White,20,ls_1,ls_end); //color, delay, low, high - chase led between two locations progressing up the chain
-  chaseBetweenDown(White,20,ss_1,ss_end); //color, delay, low, high - chase led between two locations progressing down the chain
+//   chaseBetweenDown(White,20,ss_1,ss_end); //color, delay, low, high - chase led between two locations progressing down the chain
 //  turnOffAll(); //turn all pixels off 
 
 // *** FADE UP/DOWN RED, GREEN, BLUE, WHITE
@@ -167,9 +167,9 @@ void loop() {
 //  turnOffAll();
   
 // *** RANDOM SPARKLE RED, GREEN, RED/GREEN
-//  randomSparkle(Red,80, 30); //color, density, delay - random sparkles in one color
-//  randomSparkle(Green,80, 30); //color, density, delay - random sparkles in one color
-//  twoColorSparkle(Red, Green, 30, 10); //color 1, color 2, density, delay - random sparkles in two colors
+  randomSparkle(Red,80, 30); //color, density, delay - random sparkles in one color
+  randomSparkle(Green,80, 30); //color, density, delay - random sparkles in one color
+  twoColorSparkle(Red, Green, 30, 10); //color 1, color 2, density, delay - random sparkles in two colors
  
 // *** RAINDBOW
   fadeUpAll(White,20);
@@ -180,18 +180,18 @@ void loop() {
 //  randomColorSparkle(10); //delay - random color sparkles
 
 // *** ALL BLUE, CHASE BLACK, GREEN, RED, etc.
-//  turnOnAll(Blue,1000); //color, delay - turn all pixels one color 
-//  chaseBetweenUp(White,1,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
-//  chaseBetweenUp(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
-//  chaseBetweenDown(Red,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing down the chain
-//  chaseBetweenDown(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing down the chain
+  turnOnAll(Blue,1000); //color, delay - turn all pixels one color 
+  chaseBetweenUp(White,1,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseBetweenUp(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseBetweenDown(Red,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing down the chain
+  chaseBetweenDown(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing down the chain
 //  chaseToCenter(Red,25,1,0,lastLED); //color, number of leds in line, delay, low, high - chase lines to the center
 //  chasePastCenter(Red,25,1,0,lastLED); //color, number of leds in line, delay, low, high - chase lines past the center
-//  chaseBetweenUp(strip.Color(50,50,127),1,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
-//  chaseBetweenUp(Red,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
-//  chaseBetweenUp(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
-//  chaseLineDown(Red,50,0,0,lastLED); //color, number of leds in line, delay, low, high - chase leds in a line progressing up the chain
-//  chaseLineUp(Green,50,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseBetweenUp(strip.Color(50,50,127),1,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseBetweenUp(Red,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseBetweenUp(Green,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseLineDown(Red,50,0,0,lastLED); //color, number of leds in line, delay, low, high - chase leds in a line progressing up the chain
+  chaseLineUp(Green,50,0,0,lastLED); //color, delay, low, high - chase leds between two locations progressing up the chain
 
 // *** RAINBOW CYCLE  
   fadeUpAll(White,20);
@@ -214,7 +214,7 @@ void loop() {
 // *** SEGMENT BLINK  
   int i;
   for(i=1; i<=2; i++){
-    turnSegOn(Blue,200, ls_1, ss_end-ls_1); // all on blue
+    turnSegOn(Blue,200, ls_1, ls_end-ls_1); // all on blue
     turnSegOn(Red,200, ls_8, ls_end-ls_8); // segment 8 red
     turnSegOn(Green,200, ls_1, ls_2-ls_1); // segment 1 green
     turnSegOn(Red,200, ls_2, ls_3-ls_2); // segment 2 red
@@ -226,7 +226,7 @@ void loop() {
     delay(1000);
     fadeDownAll(strip.Color(63,63,63),40); //red, green, blue, delay - fade down all pixels one color
     // now go the other direction
-    turnSegOn(Blue,200, ls_1, ss_end-ls_1); // all on blue
+    turnSegOn(Blue,200, ls_1, ls_end-ls_1); // all on blue
     turnSegOn(Green,200, ls_7, ls_8-ls_7); // segment 7 green
     turnSegOn(Red,200, ls_6, ls_7-ls_6); // segment 6 red
     turnSegOn(Green,200, ls_5, ls_6-ls_5); // segment 5 green
@@ -258,18 +258,18 @@ void loop() {
   turnSegOn(Blue,10,ss_1,ss_end-ss_1); //color, delay, start of segment, end of segment
   turnSegOn(Blue,10,ls_1,ls_end-ls_1); //color, delay, start of segment, end of segment
   chaseUpTheStar(Red,30); //color, delay
-  chaseUpCenterStar(Red,30); //color, delay
+//   chaseUpCenterStar(Red,30); //color, delay
   turnSegOn(Green,10,ls_1,ss_end-ls_1); // all segments to green
   chaseUpTheStar(Red,30); // chase up the star
 //  turnOffAll();
  
  // *** FILL UP FROM BOTTOM OUTER RED, INNER GREEN, OUTER GREEN, INNER RED, OUTER WHITE, INNER WHITE
   fillUpTheStar(Red,30); //color, delay
-  fillUpCenterStar(Green, 30); //color, delay
+//   fillUpCenterStar(Green, 30); //color, delay
   fillUpTheStar(Green,30); //color, delay
-  fillUpCenterStar(Red,30); //color, delay
+//   fillUpCenterStar(Red,30); //color, delay
   fillUpTheStar(White,30); //color, delay 
-  fillUpCenterStar(White,30); //color, delay
+//   fillUpCenterStar(White,30); //color, delay
 //  turnOffAll();
 
 // *** DITHER TO CYAN, FADE
@@ -393,37 +393,37 @@ void loop() {
 //  }
 
 // *** FADE UP RED INNER, GREEN OUTER, FADE DOWN INNER, INNER
-  fadeUp(Red,200,ss_1,ss_end-ss_1); // inner star fade up red
+//   fadeUp(Red,200,ss_1,ss_end-ss_1); // inner star fade up red
   fadeUp(Green,200,ls_1,ls_end-ls_1); // outer star fade up green
-  fadeDown(Green,200,ss_1,ss_end-ss_1); // inner star fade down green
+//   fadeDown(Green,200,ss_1,ss_end-ss_1); // inner star fade down green
   fadeDown(Red,200,ls_1,ls_end-ls_1); // outer star fade down red
 
 // *** FADE UP GREEN INNER, RED OUTER, FADE DOWN INNER, OUTER
-  fadeUp(Green,200,ss_1,ss_end-ss_1); //
-  fadeUp(Red,200,ls_1,ls_end-ls_1); //
-  fadeDown(Green,200,ss_1,ss_end-ss_1); //
-  fadeDown(Red,200,ls_1,ls_end-ls_1); //
-
+//   fadeUp(Green,200,ss_1,ss_end-ss_1);
+  fadeUp(Red,200,ls_1,ls_end-ls_1); 
+//   fadeDown(Green,200,ss_1,ss_end-ss_1); 
+  fadeDown(Red,200,ls_1,ls_end-ls_1); 
+  
 // *** FADE UP BLUE INNER, GREEN OUTER, FADE DOWN INNER, OUTER
-  fadeUp(Blue,200,ss_1,ss_end-ss_1); //
-  fadeUp(Green,200,ls_1,ls_end-ls_1); //
-  fadeDown(Blue,200,ss_1,ss_end-ss_1); //
-  fadeDown(Green,200,ls_1,ls_end-ls_1); //
+//   fadeUp(Blue,200,ss_1,ss_end-ss_1); 
+  fadeUp(Green,200,ls_1,ls_end-ls_1); 
+//   fadeDown(Blue,200,ss_1,ss_end-ss_1); 
+  fadeDown(Green,200,ls_1,ls_end-ls_1); 
   
 // *** FADE UP GREEN INNER, BLUE OUTER, FADE DOWN INNER, OUTER
-  fadeUp(Green,200,ss_1,ss_end-ss_1); //
-  fadeUp(Blue,200,ls_1,ls_end-ls_1); //
-  fadeDown(Green,200,ss_1,ss_end-ss_1); //
-  fadeDown(Blue,200,ls_1,ls_end-ls_1); //
+//   fadeUp(Green,200,ss_1,ss_end-ss_1); 
+  fadeUp(Blue,200,ls_1,ls_end-ls_1); 
+//   fadeDown(Green,200,ss_1,ss_end-ss_1); 
+  fadeDown(Blue,200,ls_1,ls_end-ls_1); 
 
 // *** FADE UP WHITE INNER, BLUE OUTER, FADE DOWN INNER, OUTER
-  fadeUp(White,200,ss_1,ss_end-ss_1); //
-  fadeUp(strip.Color(20,20,127),200,ls_1,ls_end-ls_1); //
-  fadeDown(White,200,ss_1,ss_end-ss_1); //
-  fadeDown(strip.Color(20,20,127),200,ls_1,ls_end-ls_1); //
+//   fadeUp(White,200,ss_1,ss_end-ss_1); 
+  fadeUp(strip.Color(20,20,127),200,ls_1,ls_end-ls_1); 
+//   fadeDown(White,200,ss_1,ss_end-ss_1); //
+  fadeDown(strip.Color(20,20,127),200,ls_1,ls_end-ls_1); 
 
 // *** CHASE CLOCKWISE ALL COLORS 6 LED SEGMENTS  
-  chaseMultipleLinesLToH(6,20,ls_1,ss_end); //
+  chaseMultipleLinesLToH(6,20,ls_1,ls_end); //
 
 }
 
@@ -537,28 +537,28 @@ void chaseUpTheStar(uint32_t c, uint8_t wait) {
          }  
 }
 
-void chaseUpCenterStar(uint32_t c, uint8_t wait) {
-  blink();
-  int i,j;
-  for (i = 1; i <= 5; i++) {
-    strip.setPixelColor(90+i, c);
-    strip.setPixelColor(91-i, c);
-    strip.show();   // write all the pixels out
-    delay(wait);
-    strip.setPixelColor(90+i, Black);
-    strip.setPixelColor(91-i, Black);
-    strip.show();   // write all the pixels out
-  }
-  for (j=0; j<=15; j++) {
-    strip.setPixelColor(59+j, c);
-    strip.setPixelColor(85-j, c);
-    strip.show();   // write all the pixels out
-    delay(wait);
-    strip.setPixelColor(59+j, Black);
-    strip.setPixelColor(85-j, Black);
-    strip.show();   // write all the pixels out
-  }  
-}
+// void chaseUpCenterStar(uint32_t c, uint8_t wait) {
+//   blink();
+//   int i,j;
+//   for (i = 1; i <= 5; i++) {
+//     strip.setPixelColor(90+i, c);
+//     strip.setPixelColor(91-i, c);
+//     strip.show();   // write all the pixels out
+//     delay(wait);
+//     strip.setPixelColor(90+i, Black);
+//     strip.setPixelColor(91-i, Black);
+//     strip.show();   // write all the pixels out
+//   }
+//   for (j=0; j<=15; j++) {
+//     strip.setPixelColor(59+j, c);
+//     strip.setPixelColor(85-j, c);
+//     strip.show();   // write all the pixels out
+//     delay(wait);
+//     strip.setPixelColor(59+j, Black);
+//     strip.setPixelColor(85-j, Black);
+//     strip.show();   // write all the pixels out
+//   }  
+// }
 
 void fillUpTheStar(uint32_t c, uint8_t wait) {
   blink();
@@ -579,22 +579,22 @@ void fillUpTheStar(uint32_t c, uint8_t wait) {
   }  
 }
 
-void fillUpCenterStar(uint32_t c, uint8_t wait) {
-  blink();
-  int i,j;
-  for (i = 1; i <= 5; i++) {
-    strip.setPixelColor(90+i, c);
-    strip.setPixelColor(91-i, c);
-    strip.show();   // write all the pixels out
-    delay(wait);
-  }
-  for (j=0; j<=15; j++) {
-    strip.setPixelColor(59+j, c);
-    strip.setPixelColor(85-j, c);
-    strip.show();   // write all the pixels out
-    delay(wait);
-  }  
-}
+// void fillUpCenterStar(uint32_t c, uint8_t wait) {
+//   blink();
+//   int i,j;
+//   for (i = 1; i <= 5; i++) {
+//     strip.setPixelColor(90+i, c);
+//     strip.setPixelColor(91-i, c);
+//     strip.show();   // write all the pixels out
+//     delay(wait);
+//   }
+//   for (j=0; j<=15; j++) {
+//     strip.setPixelColor(59+j, c);
+//     strip.setPixelColor(85-j, c);
+//     strip.show();   // write all the pixels out
+//     delay(wait);
+//   }  
+// }
 
 void chaseBetweenUp(uint32_t c, uint8_t wait, uint8_t point1, uint8_t point2) {
   blink();
@@ -646,41 +646,41 @@ void chaseLineDown(uint32_t c, uint8_t lineNumber, uint8_t wait, uint8_t point1,
   }  
 }
 
-void chaseToCenter(uint32_t c, uint8_t lineNumber, uint8_t wait, uint8_t pointL, uint8_t pointH) {
-  blink();
-  int i, j, k;
-  i = pointL;
-  k = pointH;
-  while(i < k && k > i) {
-           for(j = 0; j < lineNumber; j++) {
-             strip.setPixelColor(i-j, c);
-             strip.setPixelColor(k+j, c);
-           }
-  strip.show();   // write all the pixels out
-  delay(wait);
-  i++;
-  k--;
-  turnOffAll();
-  }
-}
+// void chaseToCenter(uint32_t c, uint8_t lineNumber, uint8_t wait, uint8_t pointL, uint8_t pointH) {
+//   blink();
+//   int i, j, k;
+//   i = pointL;
+//   k = pointH;
+//   while(i < k && k > i) {
+//            for(j = 0; j < lineNumber; j++) {
+//              strip.setPixelColor(i-j, c);
+//              strip.setPixelColor(k+j, c);
+//            }
+//   strip.show();   // write all the pixels out
+//   delay(wait);
+//   i++;
+//   k--;
+//   turnOffAll();
+//   }
+// }
 
-void chasePastCenter(uint32_t c, uint8_t lineNumber, uint8_t wait, uint8_t pointL, uint8_t pointH) {
-  blink();
-  int i, j, k;
-  i = pointL;
-  k = pointH;
-  while(i < pointH && k > pointL) {
-           for(j = 0; j < lineNumber; j++) {
-             strip.setPixelColor(i-j, c);
-             strip.setPixelColor(k+j, c);
-           }
-  strip.show();   // write all the pixels out
-  delay(wait);
-  i++;
-  k--;
-  turnOffAll();
-  }
-}
+// void chasePastCenter(uint32_t c, uint8_t lineNumber, uint8_t wait, uint8_t pointL, uint8_t pointH) {
+//   blink();
+//   int i, j, k;
+//   i = pointL;
+//   k = pointH;
+//   while(i < pointH && k > pointL) {
+//            for(j = 0; j < lineNumber; j++) {
+//              strip.setPixelColor(i-j, c);
+//              strip.setPixelColor(k+j, c);
+//            }
+//   strip.show();   // write all the pixels out
+//   delay(wait);
+//   i++;
+//   k--;
+//   turnOffAll();
+//   }
+// }
 
 void turnOnAll(uint32_t c, uint32_t wait) {
   blink();
