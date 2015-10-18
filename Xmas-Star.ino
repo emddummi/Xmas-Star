@@ -516,14 +516,14 @@ void chaseUpTheStar(uint32_t c, uint8_t wait) {
   int i,j;
       strip.setPixelColor(44, c);
       delay(wait);
-      strip.setPixelColor(44, Black);
+      strip.setPixelColor(40, Black);
          for (i = 1; i <= 12; i++) {
-           strip.setPixelColor(44+i, c);
-           strip.setPixelColor(44-i, c);
+           strip.setPixelColor(40+i, c);
+           strip.setPixelColor(40-i, c);
            strip.show();   // write all the pixels out
            delay(wait);
-           strip.setPixelColor(44+i, Black);
-           strip.setPixelColor(44-i, Black);
+           strip.setPixelColor(40+i, Black);
+           strip.setPixelColor(40-i, Black);
            strip.show();   // write all the pixels out
          }
          for (j=0; j<=16; j++) {
@@ -822,11 +822,11 @@ void randomColorSparkle(uint8_t wait) {
   int location1, location2, location3, location4, location5;
   int color1, color2, color3;
   for (i=0; i < 200; i++) {
-    location1 = random(0,32); //random location in first 5th of strip
-    location2 = random(33,64); //random location in 2nd 5th of strip
-    location3 = random(65,96); //random location in 3rd 5th of strip
-    location4 = random(97,128); //random location in 4th 5th of strip
-    location5 = random(129,159); //randon location in last 5th of strip
+    location1 = random(0,15); //random location in first 5th of strip
+    location2 = random(16,31); //random location in 2nd 5th of strip
+    location3 = random(32,47); //random location in 3rd 5th of strip
+    location4 = random(48,63); //random location in 4th 5th of strip
+    location5 = random(64,80); //randon location in last 5th of strip
     
     color1 = random(127);
     color2 = random(127);
