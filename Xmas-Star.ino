@@ -31,7 +31,7 @@ uint32_t Red, Green, Blue, Cyan, Yellow, Magenta, White, Black;
 
 // for 3 meter strip - 96 LEDs
 // large star:  6, 6, 14, 14, 6, 6, 14, 14  
-//            0-5, 6-11, 12-25, 26-39, 40-45, 46-51, 52-65, 66-80
+//            0-5, 6-11, 12-25, 26-39, 40-45, 46-51, 52-65, 66-79
 // small star:  4, 5, 5, 4,  5, 4, 5, 5
 //       59-62, 63-67, 68-72, 73-76,  77-81, 82-85, 86-90, 91-95
 
@@ -44,7 +44,7 @@ const int ls_5 = 40;
 const int ls_6 = 46; 
 const int ls_7 = 52; 
 const int ls_8 = 66; 
-const int ls_end = 80;  // last pixel in large star
+const int ls_end = 79;  // last pixel in large star
 // small star - clockwise
 // const int ss_1 = 59; 
 // const int ss_2 = 63; 
@@ -514,16 +514,16 @@ void wave(uint32_t c, int cycles, uint8_t wait, int repetitions) {
 void chaseUpTheStar(uint32_t c, uint8_t wait) {
   blink();
   int i,j;
-      strip.setPixelColor(44, c);
+      strip.setPixelColor(79, c);
       delay(wait);
-      strip.setPixelColor(40, Black);
+      strip.setPixelColor(79, Black);
          for (i = 1; i <= 12; i++) {
-           strip.setPixelColor(40+i, c);
-           strip.setPixelColor(40-i, c);
+           strip.setPixelColor(79+i, c);
+           strip.setPixelColor(79-i, c);
            strip.show();   // write all the pixels out
            delay(wait);
-           strip.setPixelColor(40+i, Black);
-           strip.setPixelColor(40-i, Black);
+           strip.setPixelColor(79+i, Black);
+           strip.setPixelColor(79-i, Black);
            strip.show();   // write all the pixels out
          }
          for (j=0; j<=16; j++) {
@@ -563,11 +563,11 @@ void chaseUpTheStar(uint32_t c, uint8_t wait) {
 void fillUpTheStar(uint32_t c, uint8_t wait) {
   blink();
   int i,j;
-  strip.setPixelColor(44, c);
+  strip.setPixelColor(79, c);
   delay(wait);
   for (i = 1; i <= 12; i++) {
-    strip.setPixelColor(44+i, c);
-    strip.setPixelColor(44-i, c);
+    strip.setPixelColor(79+i, c);
+    strip.setPixelColor(79-i, c);
     strip.show();   // write all the pixels out
     delay(wait);
   }
@@ -826,7 +826,7 @@ void randomColorSparkle(uint8_t wait) {
     location2 = random(16,31); //random location in 2nd 5th of strip
     location3 = random(32,47); //random location in 3rd 5th of strip
     location4 = random(48,63); //random location in 4th 5th of strip
-    location5 = random(64,80); //randon location in last 5th of strip
+    location5 = random(64,79); //randon location in last 5th of strip
     
     color1 = random(127);
     color2 = random(127);
