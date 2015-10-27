@@ -85,6 +85,12 @@ void setup() {
 void loop() {
 
   blink();
+  
+  
+  chaseUpTheStar(Red,300);
+  
+  
+  
 // *****  RANDOM RED INNER, THEN TURN ON SLOWLY
 //   randomSparkleUpSegment(Red,15,20,ss_1,ss_end); //color, density, delay, low point, high point
 //   turnSegOn(Red,1000,ss_1,ss_end-ss_1); //color, delay, start, length
@@ -167,9 +173,9 @@ void loop() {
 //  turnOffAll();
   
 // *** RANDOM SPARKLE RED, GREEN, RED/GREEN
-  randomSparkle(Red,80, 30); //color, density, delay - random sparkles in one color
-  randomSparkle(Green,80, 30); //color, density, delay - random sparkles in one color
-  twoColorSparkle(Red, Green, 30, 10); //color 1, color 2, density, delay - random sparkles in two colors
+//  randomSparkle(Red,80, 30); //color, density, delay - random sparkles in one color
+//  randomSparkle(Green,80, 30); //color, density, delay - random sparkles in one color
+//  twoColorSparkle(Red, Green, 30, 10); //color 1, color 2, density, delay - random sparkles in two colors
  
 // *** RAINDBOW
   fadeUpAll(White,20);
@@ -514,25 +520,25 @@ void wave(uint32_t c, int cycles, uint8_t wait, int repetitions) {
 void chaseUpTheStar(uint32_t c, uint8_t wait) {
   blink();
   int i,j;
-      strip.setPixelColor(44, c);
+      strip.setPixelColor(79, c);
       delay(wait);
-      strip.setPixelColor(40, Black);
-         for (i = 1; i <= 12; i++) {
-           strip.setPixelColor(40+i, c);
-           strip.setPixelColor(40-i, c);
+      strip.setPixelColor(79, Black);
+         for (i = 1; i <= 0; i++) {
+           strip.setPixelColor(79+i, c);
+           strip.setPixelColor(79-i, c);
            strip.show();   // write all the pixels out
            delay(wait);
-           strip.setPixelColor(40+i, Black);
-           strip.setPixelColor(40-i, Black);
+           strip.setPixelColor(79+i, Black);
+           strip.setPixelColor(79-i, Black);
            strip.show();   // write all the pixels out
          }
-         for (j=0; j<=16; j++) {
+         for (j=0; j<=39; j++) {
            strip.setPixelColor(j, c);
-           strip.setPixelColor(33-j, c);
+           strip.setPixelColor(44-j, c);
            strip.show();   // write all the pixels out
            delay(wait);
            strip.setPixelColor(j, Black);
-           strip.setPixelColor(33-j, Black);
+           strip.setPixelColor(44-j, Black);
            strip.show();   // write all the pixels out
          }  
 }
