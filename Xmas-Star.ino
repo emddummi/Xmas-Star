@@ -44,7 +44,7 @@ const int ls_5 = 40;
 const int ls_6 = 54; 
 const int ls_7 = 60; 
 const int ls_8 = 66; 
-const int ls_end = 79;  // last pixel in large star
+const int ls_end = 80;  // last pixel in large star
 // small star - clockwise
 // const int ss_1 = 59; 
 // const int ss_2 = 63; 
@@ -119,12 +119,12 @@ void loop() {
   
 // *** ALL RED, GREEN DITHER, FADE DOWN
   turnOnAll(Red,200); //color, delay - turn all pixels one color, slowly
-  dither(Green, 20); // DITHER TO GREEN
-  dither(Blue, 20);  // DITHER TO BLUE
-  dither(Cyan, 20);  // DITHER TO CYAN
-  dither(Yellow, 20);  // DITHER TO YELLOW
-  dither(Magenta, 20);  // DITHER TO MAGENTA
-  dither(White, 20);  // DITHER TO WHITE
+  dither(Green, 15); // DITHER TO GREEN
+  dither(Blue, 15);  // DITHER TO BLUE
+  dither(Cyan, 15);  // DITHER TO CYAN
+  dither(Yellow, 15);  // DITHER TO YELLOW
+  dither(Magenta, 15);  // DITHER TO MAGENTA
+  dither(White, 15);  // DITHER TO WHITE
 
 // *** RED DITHER, FADE DOWN
   dither(Red, 20); //color, delay - random fills up the strip
@@ -190,8 +190,8 @@ void loop() {
   chaseBetweenUp(strip.Color(50,50,127),10,0,ls_end); //color, delay, low, high - chase leds between two locations progressing up the chain
   chaseBetweenUp(Red,10,0,ls_end); //color, delay, low, high - chase leds between two locations progressing up the chain
   chaseBetweenUp(Green,10,0,ls_end); //color, delay, low, high - chase leds between two locations progressing up the chain
-  chaseLineDown(Red,25,0,0,ls_end); //color, number of leds in line, delay, low, high - chase leds in a line progressing up the chain
-  chaseLineUp(Green,25,0,0,ls_end); //color, delay, low, high - chase leds between two locations progressing up the chain
+  chaseLineDown(Red,20,0,0,ls_end); //color, number of leds in line, delay, low, high - chase leds in a line progressing up the chain
+  chaseLineUp(Green,20,0,0,ls_end); //color, delay, low, high - chase leds between two locations progressing up the chain
 
 // *** RAINBOW CYCLE  
   fadeUpAll(White,20);
@@ -213,7 +213,7 @@ void loop() {
   
 // *** SEGMENT BLINK  
   int i;
-  for(i=1; i<=2; i++){
+  for(i=1; i<=1; i++){
     turnSegOn(Blue,200, ls_1, ls_end-ls_1); // all on blue
     turnSegOn(Red,200, ls_8, ls_end-ls_8); // segment 8 red
     turnSegOn(Green,200, ls_1, ls_2-ls_1); // segment 1 green
@@ -514,25 +514,25 @@ void wave(uint32_t c, int cycles, uint8_t wait, int repetitions) {
 void chaseUpTheStar(uint32_t c, uint8_t wait) {
   blink();
   int i,j;
-      strip.setPixelColor(79, c);
+      strip.setPixelColor(44, c);
       delay(wait);
-      strip.setPixelColor(79, Black);
-         for (i = 1; i <= 0; i++) {
-           strip.setPixelColor(79+i, c);
-           strip.setPixelColor(79-i, c);
+      strip.setPixelColor(40, Black);
+         for (i = 1; i <= 12; i++) {
+           strip.setPixelColor(40+i, c);
+           strip.setPixelColor(40-i, c);
            strip.show();   // write all the pixels out
            delay(wait);
-           strip.setPixelColor(79+i, Black);
-           strip.setPixelColor(79-i, Black);
+           strip.setPixelColor(40+i, Black);
+           strip.setPixelColor(40-i, Black);
            strip.show();   // write all the pixels out
          }
-         for (j=0; j<=39; j++) {
+         for (j=0; j<=16; j++) {
            strip.setPixelColor(j, c);
-           strip.setPixelColor(79-j, c);
+           strip.setPixelColor(33-j, c);
            strip.show();   // write all the pixels out
            delay(wait);
            strip.setPixelColor(j, Black);
-           strip.setPixelColor(79-j, Black);
+           strip.setPixelColor(33-j, Black);
            strip.show();   // write all the pixels out
          }  
 }
