@@ -518,30 +518,31 @@ void wave(uint32_t c, int cycles, uint8_t wait, int repetitions) {
 }
 
 void chaseUpTheStar(uint32_t c, uint8_t wait) {
-  blink();
-  int i,j;
-      strip.setPixelColor(79, c);
-      delay(wait);
-      strip.setPixelColor(79, Black);
-         for (i = 1; i <= 0; i++) {
-           strip.setPixelColor(79+i, c);
-           strip.setPixelColor(79-i, c);
-           strip.show();   // write all the pixels out
-           delay(wait);
-           strip.setPixelColor(79+i, Black);
-           strip.setPixelColor(79-i, Black);
-           strip.show();   // write all the pixels out
-         }
-         for (j=0; j<=39; j++) {
-           strip.setPixelColor(j, c);
-           strip.setPixelColor(44-j, c);
-           strip.show();   // write all the pixels out
-           delay(wait);
-           strip.setPixelColor(j, Black);
-           strip.setPixelColor(44-j, Black);
-           strip.show();   // write all the pixels out
-         }  
+blink();
+int i,j;
+strip.setPixelColor(44, c);
+delay(wait);
+strip.setPixelColor(40, Black);
+for (i = 1; i <= 12; i++) {
+strip.setPixelColor(40+i, c);
+strip.setPixelColor(40-i, c);
+strip.show(); // write all the pixels out
+delay(wait);
+strip.setPixelColor(40+i, Black);
+strip.setPixelColor(40-i, Black);
+strip.show(); // write all the pixels out
 }
+for (j=0; j<=16; j++) {
+strip.setPixelColor(j, c);
+strip.setPixelColor(33-j, c);
+strip.show(); // write all the pixels out
+delay(wait);
+strip.setPixelColor(j, Black);
+strip.setPixelColor(33-j, Black);
+strip.show(); // write all the pixels out
+}
+}
+
 
 // void chaseUpCenterStar(uint32_t c, uint8_t wait) {
 //   blink();
