@@ -283,7 +283,7 @@ void loop() {
 
 // *** WAVE RED, FADE, WAVE GREEN
   wave(Red,5,0,200); //color, cycles, delay, repetitions
-  fadeDownAll(127,0,0,20); //red, green, blue, delay - fade down all pixels one color
+  fadeDownAll(Red,20); //red, green, blue, delay - fade down all pixels one color
   wave(Green,5,0,200); //color, cycles, delay, repetitions
 //  turnOffAll();
   
